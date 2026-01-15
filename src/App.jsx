@@ -4,6 +4,7 @@ import Home from "./pages/Home/Home.jsx"
 import Login from "./auth/Login/Login.jsx"
 import Register from "./auth/Register/Register.jsx"
 import Notfound from "./pages/Notfound/Notfound.jsx"
+import { RecoilRoot } from "recoil"
 
 
 
@@ -25,8 +26,9 @@ function App() {
     <>
 
       
-
-        <RouterProvider router={routes} ></RouterProvider>
+        <RecoilRoot>
+          <RouterProvider router={routes} ></RouterProvider>
+        </RecoilRoot>
       
     </>
   )

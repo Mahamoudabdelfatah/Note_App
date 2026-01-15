@@ -5,6 +5,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaGithub, FaBoxOpen } from "react-icons/fa";
+import { useRecoilState } from 'recoil';
+import { noteAtom } from '../../Atoms/noteAtom.js';
 
 
 
@@ -14,10 +16,12 @@ const NavbarComponent = () => {
 
   let userToken = localStorage.getItem("userToken")
 
-  function handleLogout(){
+  function handleLogout() {
     localStorage.removeItem("userToken")
     navigate("/login")
   }
+
+  let [notesLength, setNotesLength] = useRecoilState(noteAtom)
 
   return (
     <Navbar expand="lg" className="bg-primary">
@@ -47,7 +51,7 @@ const NavbarComponent = () => {
                         fontWeight: 'bold'
                       }}
                     >
-                      11
+                      {notesLength}
                     </span>
                   </div>
                 </Nav.Link>

@@ -7,6 +7,8 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useEffect } from 'react';
 import Note from '../../components/Note/Note.jsx';
+import { useRecoilState } from 'recoil';
+import { noteAtom } from '../../Atoms/noteAtom.js';
 
 
 
@@ -18,6 +20,7 @@ const Home = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [notes, setNotes] = useState([])
+    let [notesLength, setNotesLength] = useRecoilState(noteAtom)
 
 
     async function addNote(values) {
@@ -51,12 +54,15 @@ const Home = () => {
             .then((response) => {
 
                 setNotes(response?.data?.notes)
+                setNotesLength(response?.data?.notes.length)
                 console.log(response?.data?.notes);
 
 
             })
             .catch((error) => { })
     }
+
+    
 
     let validationSchema = Yup.object().shape({
         title: Yup.string().min(3, "Title min length 3").max(15, "Title Max Length 15").required("Title is Require"),
@@ -112,6 +118,7 @@ const Home = () => {
                     return <Note key={note._id} note={note} ></Note>
                 })}
             </div>
+            <h5 className='my-3 text-end'>Notes Number : {notesLength}</h5>
         </div>
     )
 }
