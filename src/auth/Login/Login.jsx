@@ -50,35 +50,51 @@ const Login = () => {
 
 
     return (
-        <div className='row justify-content-around'>
-            <div className='col-md-5 text-start order-lg-0 order-1'>
-                <h3 className="my-4">Login Now : </h3>
-                {apiError && <div className='alert alert-danger mt-4 mb-4 p-3'><strong>{apiError}</strong></div>}
+        <div className="container py-5">
+            <div className="row justify-content-center align-items-center">
+                <div className="col-md-5 order-lg-0 order-1">
+                    <div className="p-4 shadow-sm bg-white rounded-4">
+                        <h3 className="mb-4 fw-semibold">Login Now:</h3>
 
-                <Form onSubmit={formik.handleSubmit}>
+                        {apiError && (
+                            <div className="alert alert-danger"><strong>{apiError}</strong></div>
+                        )}
 
-                    <Form.Group className='mb-3' controlId='Email'>
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder='Email address' name='email' value={formik.values.email} onBlur={formik.handleBlur} onChange={formik.handleChange} />
-                        {formik.errors.email && formik.touched.email && (<div className='alert alert-danger mt-4 mb-4 p-3'><strong>{formik.errors.email}</strong></div>)}
-                    </Form.Group>
+                        <Form onSubmit={formik.handleSubmit}>
+                            <Form.Group className="mb-3" controlId="Email">
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type="email" placeholder="Email address" name="email"
+                                    value={formik.values.email} onBlur={formik.handleBlur} onChange={formik.handleChange} />
+                                {formik.errors.email && formik.touched.email && (
+                                    <div className="alert alert-danger mt-2"><strong>{formik.errors.email}</strong></div>
+                                )}
+                            </Form.Group>
 
-                    <Form.Group className='mb-3' controlId='Password'>
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder='Password' name='password' value={formik.values.password} onBlur={formik.handleBlur} onChange={formik.handleChange} />
-                        {formik.errors.password && formik.touched.password && (<div className='alert alert-danger mt-4 mb-4 p-3'><strong>{formik.errors.password}</strong></div>)}
-                    </Form.Group>
+                            <Form.Group className="mb-3" controlId="Password">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" placeholder="Password" name="password"
+                                    value={formik.values.password} onBlur={formik.handleBlur} onChange={formik.handleChange} />
+                                {formik.errors.password && formik.touched.password && (
+                                    <div className="alert alert-danger mt-2"><strong>{formik.errors.password}</strong></div>
+                                )}
+                            </Form.Group>
 
-                    <Button variant='primary' type='submit'>{isLoading ? <FaSpinner className="spinner mx-auto" /> : "Login"}</Button>
-                    <p >Have an account<Link to="/register">Register</Link></p>
+                            <Button variant="primary" type="submit" className="w-100 py-2 mb-3">
+                                {isLoading ? <FaSpinner className="spinner" /> : "Login"}
+                            </Button>
 
-                </Form>
-            </div>
-            <div className='col-md-5'>
-                <img src="/signin-image.jpg" className='w-100' alt="" />
+                            <p className="text-center">Don't have an account? <Link to="/register">Register</Link></p>
+                        </Form>
+                    </div>
+                </div>
+
+                <div className="col-md-5 mb-4 mb-md-0">
+                    <img src="/signin-image.jpg" className="w-100 rounded-4 shadow-sm" alt="" />
+                </div>
             </div>
         </div>
     )
+
 }
 
 export default Login
