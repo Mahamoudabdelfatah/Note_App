@@ -26,7 +26,7 @@ const NavbarComponent = () => {
   return (
     <Navbar expand="lg" className="bg-primary">
       <Container>
-        <Navbar.Brand href="#home" className='text-white fw-bold fs-4'>Sticky App</Navbar.Brand>
+        <Navbar.Brand href="#home" className='text-white fw-bold fs-4'>Note App</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">

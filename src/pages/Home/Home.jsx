@@ -136,7 +136,7 @@ const Home = () => {
                 <h2 className='mb-4'>Notes</h2>
                 <div className='row g-4'>
                     {notes?.map((note) => {
-                        return <Note key={note._id} note={note} deleteNote={deleteNote} ></Note>
+                        return <Note key={note._id} note={note} deleteNote={deleteNote} getNotes={getNotes} ></Note>
                     })}
                 </div>
                 <h5 className='my-3 text-end'>Notes Number : {notesLength}</h5>
