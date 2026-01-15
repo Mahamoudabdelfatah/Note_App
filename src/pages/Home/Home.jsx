@@ -20,6 +20,7 @@ const Home = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [notes, setNotes] = useState([])
+    let [deleteNoteError, setDeleteNoteError] = useState("")
     let [notesLength, setNotesLength] = useRecoilState(noteAtom)
 
 
@@ -46,6 +47,7 @@ const Home = () => {
     }
 
     async function getNotes() {
+        setDeleteNoteError(null)
         await axios.get(`https://note-sigma-black.vercel.app/api/v1/notes`, {
             headers: {
                 token: `3b8ny__${localStorage.getItem("userToken")}`
@@ -59,10 +61,28 @@ const Home = () => {
 
 
             })
-            .catch((error) => { })
+            .catch((error) => {
+                console.log(error);
+                setDeleteNoteError(error?.response?.data?.msg)
+                setNotesLength(0)
+
+            })
     }
 
-    
+    async function deleteNote(ID) {
+        await axios.delete(`https://note-sigma-black.vercel.app/api/v1/notes/${ID}`, {
+            headers: {
+                token: `3b8ny__${localStorage.getItem("userToken")}`
+            }
+        })
+            .then((response) => {
+                console.log(response);
+                getNotes()
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
 
     let validationSchema = Yup.object().shape({
         title: Yup.string().min(3, "Title min length 3").max(15, "Title Max Length 15").required("Title is Require"),
@@ -112,13 +132,15 @@ const Home = () => {
                 <FaPlus className="me-2" />
                 Add Note
             </Button>
-            <h2 className='mb-4'>Notes</h2>
-            <div className='row g-4'>
-                {notes?.map((note) => {
-                    return <Note key={note._id} note={note} ></Note>
-                })}
-            </div>
-            <h5 className='my-3 text-end'>Notes Number : {notesLength}</h5>
+            {deleteNoteError ? <h4>{deleteNoteError}</h4> : <>
+                <h2 className='mb-4'>Notes</h2>
+                <div className='row g-4'>
+                    {notes?.map((note) => {
+                        return <Note key={note._id} note={note} deleteNote={deleteNote} ></Note>
+                    })}
+                </div>
+                <h5 className='my-3 text-end'>Notes Number : {notesLength}</h5>
+            </>}
         </div>
     )
 }

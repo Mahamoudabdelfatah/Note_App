@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import { FaTrash, FaEdit } from "react-icons/fa";
 
 
-const Note = ({ note }) => {
+const Note = ({ note, deleteNote }) => {
     return (
         <div className="col-md-4">
             <Card>
@@ -15,7 +15,7 @@ const Note = ({ note }) => {
 
                     <div className='d-flex gap-2' >
                         <FaEdit className='text-primary fs-4  cursor-pointer' />
-                        <FaTrash className='text-primary fs-4 cursor-pointer ' />
+                        <FaTrash className='text-primary fs-4 cursor-pointer ' onClick={() => deleteNote(note._id)} />
                     </div>
 
 
